@@ -1,0 +1,13 @@
+.not-found-page {
+    height: 85vh; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.not-found__container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
