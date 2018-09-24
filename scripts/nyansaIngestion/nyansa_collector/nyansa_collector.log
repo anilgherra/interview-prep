@@ -1,0 +1,24 @@
+2018-08-13 09:01:15,079 Starting new HTTPS connection (1): sfo.nyansa.com:443
+2018-08-13 09:01:15,207 https://sfo.nyansa.com:443 "POST /graphql HTTP/1.1" 401 None
+2018-08-13 09:01:15,210 end
+2018-08-13 09:03:21,189 Starting new HTTPS connection (1): sfo.nyansa.com:443
+2018-08-13 09:03:21,300 https://sfo.nyansa.com:443 "POST /graphql HTTP/1.1" 401 None
+2018-08-13 09:03:21,304 end
+2018-08-13 09:03:58,265 Starting new HTTPS connection (1): sfo-nyansa.flysfo.com:443
+2018-08-13 09:03:58,279 HTTPSConnectionPool(host='sfo-nyansa.flysfo.com', port=443): Max retries exceeded with url: /graphql (Caused by SSLError(SSLError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:833)'),))
+2018-08-13 09:04:08,809 Starting new HTTPS connection (1): sfo-nyansa.flysfo.com:443
+2018-08-13 09:04:08,825 HTTPSConnectionPool(host='sfo-nyansa.flysfo.com', port=443): Max retries exceeded with url: /graphql (Caused by SSLError(SSLError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:833)'),))
+2018-08-13 09:04:45,402 Starting new HTTPS connection (1): sfo-nyansa.flysfo.com:443
+2018-08-13 09:04:45,414 HTTPSConnectionPool(host='sfo-nyansa.flysfo.com', port=443): Max retries exceeded with url: /graphql (Caused by SSLError(SSLError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed (_ssl.c:833)'),))
+2018-08-13 09:06:37,059 Starting new HTTPS connection (1): sfo-nyansa.flysfo.com:443
+2018-08-13 09:06:37,104 https://sfo-nyansa.flysfo.com:443 "POST /graphql HTTP/1.1" 200 None
+2018-08-13 09:06:37,108 end
+2018-08-13 09:07:45,842 Starting new HTTPS connection (1): sfo-nyansa.flysfo.com:443
+2018-08-13 09:07:45,879 https://sfo-nyansa.flysfo.com:443 "POST /graphql HTTP/1.1" 200 None
+2018-08-13 09:07:45,883 end
+2018-08-13 09:07:59,449 Starting new HTTPS connection (1): sfo-nyansa.flysfo.com:443
+2018-08-13 09:07:59,489 https://sfo-nyansa.flysfo.com:443 "POST /graphql HTTP/1.1" 200 None
+2018-08-13 09:07:59,493 end
+2018-08-13 09:08:31,369 Starting new HTTPS connection (1): sfo-nyansa.flysfo.com:443
+2018-08-13 09:08:31,405 https://sfo-nyansa.flysfo.com:443 "POST /graphql HTTP/1.1" 200 None
+2018-08-13 09:08:31,410 end
