@@ -1,0 +1,290 @@
+swagger: "2.0"
+info:
+  description: "This API provides Occupancy Data on Terminals for San Francisco International Airport [http://www.flysfo.com](http://www.flysfo.com)."
+  version: "1.0.0"
+  title: "UC04"
+  contact:
+    name: "anthony.wong@flysfo.com"
+host: "api.sfo-cloud.com"
+basePath: "/uc04/dev"
+tags:
+- name: "Occupancy"
+  description: "Occupancy on SFO Terminals"
+schemes:
+- "https"
+- "http"
+paths:
+  /sfo/v1/wifi/terminals:
+    get:
+      tags:
+      - "Occupancy"
+      summary: "Return all terminal ids for SFO"
+      description: "Return all terminal ids for SFO"
+      operationId: "getTerminalIDs"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Successful operation : Return all terminal ids for SFO"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Terminal"
+        403:
+          description: "Forbidden : You don't have permission to access / on this server."
+        404:
+          description: "Not Found : The server has not found anything matching the Request-URI."
+        500:
+          description: "Internal Server Error : The server encountered an unexpected condition which prevented it from fulfilling the request."
+  /sfo/v1/wifi/terminals/{terminal_id}:
+    get:
+      tags:
+      - "Occupancy"
+      summary: "Return a terminal information base on the terminal id"
+      description: "Return a terminal information base on the terminal id"
+      operationId: "getTerminalID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "terminal_id"
+        in: "path"
+        description: "The id of the terminal to be filter"
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "terminal_1"     #Terminal 1
+          - "terminal_2"     #Terminal 2
+          - "terminal_3"     #Terminal 3
+          - "terminal_itb"   #INTERNATIONAL_TERMINAL_BUILDING
+      responses:
+        200:
+          description: "Successful operation : Return a terminal ids information"
+          schema:
+              $ref: "#/definitions/Terminal"
+        403:
+          description: "Forbidden : You don't have permission to access / on this server."
+        404:
+          description: "Not Found : The server has not found anything matching the Request-URI."
+        500:
+          description: "Internal Server Error : The server encountered an unexpected condition which prevented it from fulfilling the request."
+  /sfo/v1/wifi/terminals/{terminal_id}/occupancy:
+    get:
+      tags:
+      - "Occupancy"
+      summary: "Return Occupancy by Terminal ID"
+      description: "Return all the devices and its location within the terminal for a given time period."
+      operationId: "getOccupancyByTerminal"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "terminal_id"
+        in: "path"
+        description: "The id of the terminal to be filter."
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "terminal_1"     #Terminal 1
+          - "terminal_2"     #Terminal 2          
+          - "terminal_3"     #Terminal 3
+          - "terminal_itb"   #INTERNATIONAL_TERMINAL_BUILDING
+      - name: "start_time"
+        in: "query"
+        description: "Start time range to be filter in UTC. For example: 2018-08-30T13:00:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "end_time"
+        in: "query"
+        description: "End time range to be filter in UTC. For example: 2018-08-30T13:30:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "Successful operation : Return the occupancy by the terminal id"
+          schema:
+              $ref: "#/definitions/Occupancy"
+        403:
+          description: "Forbidden : You don't have permission to access / on this server."
+        404:
+          description: "Not Found : The server has not found anything matching the Request-URI."
+        500:
+          description: "Internal Server Error : The server encountered an unexpected condition which prevented it from fulfilling the request."
+  /sfo/v1/wifi/terminals/occupancy:
+    get:
+      tags:
+      - "Occupancy"
+      summary: "Return all terminals occupancy"
+      description: "Return all the devices and its location within the terminal for a given time period."
+      operationId: "getOccupancyForAllTerminals"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "start_time"
+        in: "query"
+        description: "Start time range to be filter in UTC. For example: 2018-08-30T13:00:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "end_time"
+        in: "query"
+        description: "End time range to be filter in UTC. For example: 2018-08-30T13:30:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "Successful operation : Return the occupancy for all terminals"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Occupancy"
+        403:
+          description: "Forbidden : You don't have permission to access / on this server."
+        404:
+          description: "Not Found : The server has not found anything matching the Request-URI."
+        500:
+          description: "Internal Server Error : The server encountered an unexpected condition which prevented it from fulfilling the request."
+  /sfo/v1/wifi/terminals/{terminal_id}/presence:
+    get:
+      tags:
+      - "Presence Event"
+      summary: "Return Presence Event by Terminal ID"
+      description: "Return all the devices and its location within a specific terminal for a given time period."
+      operationId: "getPresenceEventByTerminal"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "terminal_id"
+        in: "path"
+        description: "The id of the terminal to be filter."
+        required: true
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "terminal_1"     #Terminal 1
+          - "terminal_2"     #Terminal 2          
+          - "terminal_3"     #Terminal 3
+          - "terminal_itb"   #INTERNATIONAL_TERMINAL_BUILDING
+      - name: "start_time"
+        in: "query"
+        description: "Start time range to be filter in UTC. For example: 2018-08-30T13:00:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "end_time"
+        in: "query"
+        description: "End time range to be filter in UTC. For example: 2018-08-30T13:30:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "Successful operation : Return the presence by the terminal id"
+          schema:
+              $ref: "#/definitions/Presence"
+        403:
+          description: "Forbidden : You don't have permission to access / on this server."
+        404:
+          description: "Not Found : The server has not found anything matching the Request-URI."
+        500:
+          description: "Internal Server Error : The server encountered an unexpected condition which prevented it from fulfilling the request."
+  /sfo/v1/wifi/terminals/presence:
+    get:
+      tags:
+      - "Presence Event"
+      summary: "Return all the terminal presence"
+      description: "Return the number of unique devices for all terminals for a given time period."
+      operationId: "getPresenceEvent"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "start_time"
+        in: "query"
+        description: "Start time range to be filter in UTC. For example: 2018-08-30T13:00:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      - name: "end_time"
+        in: "query"
+        description: "End time range to be filter in UTC. For example: 2018-08-30T13:30:00Z"
+        required: false
+        type: "string"
+        format: "date-time"
+      responses:
+        200:
+          description: "Successful operation : Return all the presence for all terminals"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Presence"
+        403:
+          description: "Forbidden : You don't have permission to access / on this server."
+        404:
+          description: "Not Found : The server has not found anything matching the Request-URI."
+        500:
+          description: "Internal Server Error : The server encountered an unexpected condition which prevented it from fulfilling the request."          
+definitions:
+  Terminal:
+    type: "object"
+    properties:
+      terminal_id:
+        type: "string"
+      terminal_name:
+        type: "string"
+      centroid:
+          $ref: "#/definitions/Point"
+      polygon:
+        type: "array"
+        items:
+          $ref: "#/definitions/Point"
+  Occupancy:
+    type: "object"
+    required:
+    - "terminal_id"
+    properties:
+      terminal_id:
+        type: "string"
+      terminal_name:
+        type: "string"
+      start_time:
+        type: "string"
+        format: "date-time"
+      end_time:
+        type: "string"
+        format: "date-time"
+      device_locations:
+        type: "array"
+        items:
+          $ref: "#/definitions/Point"
+      number_devices:
+        type: "integer"
+  Presence:
+    type: "object"
+    required:
+    - "terminal_id"
+    properties:
+      terminal_id:
+        type: "string"
+      terminal_name:
+        type: "string"
+      start_time:
+        type: "string"
+        format: "date-time"
+      end_time:
+        type: "string"
+        format: "date-time"
+      number_devices:
+        type: "integer"
+  Point:
+    type: "object"
+    properties:
+      lat: 
+        type: "number"
+      lon: 
+        type: "number"

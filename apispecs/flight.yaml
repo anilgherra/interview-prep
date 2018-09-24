@@ -1,0 +1,135 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api Documentation",
+    "version": "1.0",
+    "title": "Api Documentation",
+    "termsOfService": "urn:tos",
+    "contact": {},
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "localhost:8903",
+  "basePath": "/flightStats_ws/v1.0",
+  "tags": [
+    {
+      "name": "flight-resource",
+      "description": "Flight Resource"
+    }
+  ],
+  "paths": {
+    "/terminal/{terminal_id}/flights": {
+      "get": {
+        "tags": [
+          "flight-resource"
+        ],
+        "summary": "Gets flight Information Filtered by a range of time and type",
+        "operationId": "getFlightsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "terminal_id",
+            "in": "path",
+            "description": "terminal id in integer format",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "arriving,departing,all",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start_time",
+            "in": "query",
+            "description": "yyyy-MM-dd HH:mm:ss in UTC",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end_time",
+            "in": "query",
+            "description": "yyyy-MM-dd HH:mm:ss in UTC",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns flight after filtered ",
+            "schema": {
+              "$ref": "#/definitions/Flight"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Flight": {
+      "type": "object",
+      "properties": {
+        "actual_time": {
+          "type": "string"
+        },
+        "airline_name": {
+          "type": "string"
+        },
+        "baggage_claim": {
+          "type": "string"
+        },
+        "estimated_time": {
+          "type": "string"
+        },
+        "flight_number": {
+          "type": "string"
+        },
+        "flight_type": {
+          "type": "string"
+        },
+        "gate": {
+          "type": "string"
+        },
+        "origin_city": {
+          "type": "string"
+        },
+	      "destination_city": {
+          "type": "string"
+        },
+        "remarks": {
+          "type": "string"
+        },
+        "scheduled_time": {
+          "type": "string"
+        },
+        "seats": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "terminal_id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Flight"
+    }
+  }
+}

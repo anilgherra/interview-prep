@@ -1,0 +1,202 @@
+swagger: '2.0'
+info:
+  description: >-
+    This API providesAP Association Data on Terminals for San Francisco
+    International Airport [http://www.flysfo.com](http://www.flysfo.com).
+  version: 1.0.0
+  title: UCO4
+  contact:
+    name: sarah.li@flysfo.com
+host: api.sfo-cloud.com
+basePath: /uc04/dev
+tags:
+  - name: Ap
+    description: Ap on SFO Terminals
+schemes:
+  - https
+  - http
+paths:
+  /sfo/v1/wifi/aps:
+    get:
+      tags:
+        - Ap
+      summary: Return all APs association
+      description: Return all Aps Association
+      operationId: getAps
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: 'Successful operation : Return all terminal ids for SFO'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Ap'
+        '403':
+          description: 'Forbidden : You don''t have permission to access / on this server.'
+        '404':
+          description: >-
+            Not Found : The server has not found anything matching the
+            Request-URI.
+        '500':
+          description: >-
+            Internal Server Error : The server encountered an unexpected
+            condition which prevented it from fulfilling the request.
+  '/sfo/v1/wifi/aps/{ap_id}':
+    get:
+      tags:
+        - Ap
+      summary: Return a AP association information based on the AP id
+      description: Return AP information based on the AP id
+      operationId: getApById
+      produces:
+        - application/json
+      parameters:
+        - name: ap_id
+          in: path
+          description: The id of the AP to be filter
+          required: true
+          type: string
+          items:
+            type: string
+      responses:
+        '200':
+          description: 'Successful operation : Return a AP ids information'
+          schema:
+            $ref: '#/definitions/Ap'
+        '403':
+          description: 'Forbidden : You don''t have permission to access / on this server.'
+        '404':
+          description: >-
+            Not Found : The server has not found anything matching the
+            Request-URI.
+        '500':
+          description: >-
+            Internal Server Error : The server encountered an unexpected
+            condition which prevented it from fulfilling the request.
+  '/sfo/v1/wifi/aps/{ap_id}/client_associations/count':
+    get:
+      tags:
+        - Ap
+      summary: Return association count for an AP by ID
+      description: return the number of non-duplicated count of association for an AP
+      operationId: getAssociationCountByApId
+      produces:
+        - application/json
+      parameters:
+        - name: ap_id
+          in: path
+          description: The id of the ap to be filter
+          required: true
+          type: string
+          items:
+            type: string
+        - name: start_time
+          in: query
+          description: 'start time in UTC to be filter. E.g. 2018-08-30T08:25:00Z (zulu)'
+          required: false
+          type: string
+          format: date-time
+        - name: end_time
+          in: query
+          description: 'end time in UTC to be filter. E.g. 2018-08-30T08:25:00Z (zulu)'
+          required: false
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: 'successful operation: return the association count by ap id'
+        '400':
+          description: Invalid status value
+  '/sfo/v1/wifi/terminals/{terminal_id}/client_associations/count':
+    get:
+      tags:
+        - Ap
+      summary: Return association count by terminal id
+      description: >-
+        return the number of non-duplicated count of association for Aps by
+        terminal
+      operationId: getAssociationCountByTerminal
+      produces:
+        - application/json
+      parameters:
+        - name: terminal_id
+          in: path
+          description: The id of the terminal to be filter
+          required: true
+          type: string
+          items:
+            type: string
+        - name: start_time
+          in: query
+          description: 'start time in UTC to be filter. E.g. 2018-08-30T08:25:00Z (zulu)'
+          required: false
+          type: string
+          format: date-time
+        - name: end_time
+          in: query
+          description: 'end time in UTC to be filter. E.g. 2018-08-30T08:25:00Z (zulu)'
+          required: false
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: 'successful operation: return the association count by ap id'
+        '400':
+          description: Invalid status value
+  '/sfo/v1/wifi/terminals/client_associations/count':
+    get:
+      tags:
+        - Ap
+      summary: Return association count of all the terminal
+      description: >-
+        return the number of non-duplicated count of association for Aps by
+        terminal
+      operationId: getAssociationCountofAllTerminals
+      produces:
+        - application/json
+      parameters:
+        - name: start_time
+          in: query
+          description: 'start time in UTC to be filter. E.g. 2018-08-30T08:25:00Z (zulu)'
+          required: false
+          type: string
+          format: date-time
+        - name: end_time
+          in: query
+          description: 'end time in UTC to be filter. E.g. 2018-08-30T08:25:00Z (zulu)'
+          required: false
+          type: string
+          format: date-time
+      responses:
+        '200':
+          description: 'successful operation: return the association count of all terminal'
+          schema:
+              $ref: "#/definitions/Terminals"
+        '400':
+          description: Invalid status value        
+definitions:
+  ApAssociation:
+    type: object
+    properties:
+      ap_id:
+        type: string
+      ap_name:
+        type: string
+      num_association:
+        type: string
+  Terminals:
+    type: "object"
+    properties:
+      terminal_id:
+        type: "string"
+      terminal_name:
+        type: "string"
+     
+  Ap:
+    type: object
+    properties:
+      ap_id:
+        type: string
+      ap_name:
+        type: string
